@@ -2,6 +2,7 @@
 #include<memory>
 #include"MysqlConn.h"
 #include"ConnectionPool.h"
+#include"log.h"
 using namespace std;
 
 void op1(int begin, int end)
@@ -112,5 +113,6 @@ int main()
 	/*query();*/
 	/*test3();*/
 	test4();
+
 	return 0;
 }

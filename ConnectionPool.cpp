@@ -108,7 +108,7 @@ shared_ptr<MysqlConn> ConnectionPool::getConnection()
             {
                 continue;
             }
-        }
+        }//如果超时就继续等待，否则就取走
     }
     shared_ptr<MysqlConn> connptr(m_connections.front(), [this](MysqlConn* conn) {
         lock_guard<mutex>lg(m_mtx);
@@ -116,7 +116,7 @@ shared_ptr<MysqlConn> ConnectionPool::getConnection()
         conn->refreshTime();
         });//写删除触发的回调函数;
     m_connections.pop();
-    m_conditon.notify_all();
+	m_conditon.notify_all();//提醒生产者线程检查连接池总数是否小于min值
 
     return connptr;
 }

@@ -25,7 +25,7 @@ bool MysqlConn::update(string sql)
 
 bool MysqlConn::query(string sql)
 {
-	freeResult();
+	freeResult();//先释放之前的结果集
 	int ret=mysql_query(m_conn, sql.c_str());
 	if (ret)return false;
 	m_result=mysql_store_result(m_conn);
